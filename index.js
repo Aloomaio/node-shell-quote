@@ -1,4 +1,3 @@
-var json = typeof JSON !== undefined ? JSON : require('jsonify');
 var map = require('array-map');
 var filter = require('array-filter');
 var reduce = require('array-reduce');
@@ -42,7 +41,7 @@ exports.parse = function (s, env, opts) {
         if (xs.length === 1) return acc.concat(xs[0]);
         return acc.concat(map(filter(xs, Boolean), function (x) {
             if (RegExp('^' + TOKEN).test(x)) {
-                return json.parse(x.split(TOKEN)[1]);
+                return JSON.parse(x.split(TOKEN)[1]);
             }
             else return x;
         }));
@@ -192,7 +191,7 @@ function parse (s, env, opts) {
         if (r === undefined) r = '';
 
         if (typeof r === 'object') {
-            return pre + TOKEN + json.stringify(r) + TOKEN;
+            return pre + TOKEN + JSON.stringify(r) + TOKEN;
         }
         else return pre + r;
     }
